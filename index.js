@@ -62,22 +62,16 @@ const checkIsUpdated = async () => {
       lastUpdate = response.Data;
     } else {
       if (USDDracoRate != lastUpdate.USDDracoRate) {
-        const isIncreased =
+        const percentUpdate =
           ((USDDracoRate - lastUpdate.USDDracoRate) / lastUpdate.USDDracoRate) *
-            100 >=
-          0
-            ? `AUMENTOU ${
-                ((USDDracoRate - lastUpdate.USDDracoRate) /
-                  lastUpdate.USDDracoRate) *
-                100
-              }%`
-            : `DIMINUIU ${
-                ((USDDracoRate - lastUpdate.USDDracoRate) /
-                  lastUpdate.USDDracoRate) *
-                100
-              }%`;
+          100;
 
-        console.log(isIncreased);
+        const isIncreased =
+          percentUpdate >= 0
+            ? `AUMENTOU`
+            : `DIMINIU`;
+
+        console.log(`[PERCENT] ${isIncreased} ${percentUpdate}% `);
         console.log(
           `[UPDATE] novo valor USD: $${USDDracoRate} BRL: R$${
             brl * USDDracoRate
